@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="userLoginForm" type="fjs.cs.action.form.UserLoginForm" />
+		<form-bean name="searchForm" type="fjs.cs.action.form.SearchForm" />
+		<form-bean name="EditForm" type="fjs.cs.action.form.EditForm" />
+	</form-beans>
+	<action-mappings>
+		<action name="userLoginForm" path="/register1" type="fjs.cs.action.UserLoginAction"
+			scope="request" validate="false">
+			<forward name="failure" path="/login.jsp" />
+			<forward name="success" path="/search.do?start=0" />
+		</action>
+
+		<action path="/search" type="fjs.cs.action.CustomerAction" scope="request">
+			<forward name="search" path="/search.jsp" />
+		</action>
+		<action path="/page" type="fjs.cs.action.PaginateAction" scope="request">
+			<forward name="page" path="/search.jsp" />
+		</action>
+		<action path="/delete" type="fjs.cs.action.DeletedAction" scope="request">
+			<forward name="page" path="/search.jsp" />
+		</action>
+		<action name="searchForm" path="/processSearch" type="fjs.cs.action.SearchAction"
+			scope="request" validate="false">
+			<forward name="result" path="/search.jsp" />
+		</action>
+		<action name="EditForm" path="/processEdit" type="fjs.cs.action.EditAction"
+			scope="request" validate="false">
+			<forward name="result1" path="/processSearch.do" redirect="true"/>
+			<forward name="result2" path="/search.do?start=0" redirect="true"/>
+		</action>
+		<action name="EditForm" path="/processAdd" type="fjs.cs.action.addAction"
+			scope="request" validate="false">
+			<forward name="result1" path="/processSearch.do" redirect="true"/>
+			<forward name="result2" path="/search.do?start=0" redirect="true"/>
+		</action>
+		<action path="/edit" type="fjs.cs.action.RedirectEditAction" scope="request">
+			<forward name="edit" path="/edit.jsp" />
+		</action>
+		<action path="/add" type="fjs.cs.action.RedirectAddAction" scope="request">
+			<forward name="add" path="/edit.jsp" />
+		</action>
+	</action-mappings>
+
+	<message-resources parameter="WEB-INF/src/java/resources/application.properties" />
+
+</struts-config>
